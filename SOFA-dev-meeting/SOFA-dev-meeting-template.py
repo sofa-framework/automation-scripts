@@ -6,7 +6,7 @@ from find_all_to_review_PR import list_to_review_pr
 from list_merged_pr import list_merged_pr
 from list_topics_to_be_discussed import list_topics_to_be_discussed
 
-discord_token = os.environ['DISCORD_SOFADEV_WEBHOOK_URL']
+discord_token = os.environ['DISCORD_WEBHOOK_URL']
 
 def postOnDiscord(message):
     payload = {
