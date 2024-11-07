@@ -1,0 +1,64 @@
+name: Post - GitHub stats for activity tracking
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 1,15 * *"   # Every 1st & 15th of the month
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pip packages
+        run: |
+          pip install python-graphql-client
+          pip install python-dateutil
+          pip install requests
+          pip install beautifulsoup4
+
+        working-directory: ${{ github.workspace }}
+
+      - name: Run script post-discord-message.py
+        if: github.event.schedule != '0 0 15 * *'
+        run: |
+          python Discord/post-discord-message.py
+        working-directory: ${{ github.workspace }}
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_GITHUBSTATS_WEBHOOK_URL }}
+          MESSAGE: "**MONTHLY REPORT** ..................\n\n "
+          BOT_NAME: "Github activity tracking"
+          EMBEDS_TITLE: ""
+          EMBEDS_URL: ""
+          EMBEDS_DESCRIPTION: ""
+
+      - name: Get download stats
+        if: github.event.schedule != '0 0 15 * *'
+        run: |
+          python GitHubStats/get_downloads.py
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_GITHUBSTATS_WEBHOOK_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get cloner stats
+        run: |
+          python GitHubStats/get_cloners.py
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_GITHUBSTATS_WEBHOOK_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get GitHub stats - PR issues discussions
+        if: github.event.schedule != '0 0 15 * *'
+        run: |
+          python GitHubStats/get_repo_stats.py
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_GITHUBSTATS_WEBHOOK_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
