@@ -52,4 +52,6 @@ else:
 
 unique_cloners, total_cloners, sum_unique_cloners, sum_total_cloners= get_clone_stats(repo_owner, repo_name, github_token)
 
-postOnDiscord("Nombre de cloners uniques (sum): "+str(sum_unique_cloners)+"\nNombre total de cloners (sum): "+str(sum_total_cloners)+"\n=========================\n\n")
+message = "Nombre de cloners uniques (sum): "+str(sum_unique_cloners)+"\nNombre total de cloners (sum): "+str(sum_total_cloners)+"\n=========================\n\n"
+
+postOnDiscord(message)
