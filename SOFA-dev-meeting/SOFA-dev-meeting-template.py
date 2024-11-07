@@ -9,12 +9,7 @@ from list_topics_to_be_discussed import list_topics_to_be_discussed
 discord_token = os.environ['DISCORD_WEBHOOK_URL']
 
 def postOnDiscord(message):
-    payload = {
-        'content' : message,
-        'username' : 'SOFA dev meeting template',
-        'flags' : 4,
-    }
-    response = requests.post(discord_token, json=payload)
+    response = requests.post(discord_token, files={"file": open("SOFA-dev-meeting.md", "rb")})
     print("Status: "+str(response.status_code)+"\nReason: "+str(response.reason)+"\nText: "+str(response.text))
     return
 
@@ -28,22 +23,25 @@ def main(argv):
     dateToday = today.strftime("%d/%m/%Y")
     
     message="# "+str(dateToday)+"\n### News\n- \n\n### Technical discussions"
-    postOnDiscord(message)
 
-    message = list_topics_to_be_discussed("sofa")
-    postOnDiscord(message)
+    output = list_topics_to_be_discussed("sofa")
+    message = message + output
 
-    postOnDiscord("### PR review")
+    message = message + "### PR review"
     for arg in argv[1:]:
-        message = list_to_review_pr(arg)
-        postOnDiscord(message+"\n")
+        output = list_to_review_pr(arg)
+        message = message + output +"\n"
 
-    postOnDiscord("### PR merged within the week")
+    message = message + "### PR merged within the week"
     for arg in argv[1:]:
-        message = list_merged_pr(arg)
-        postOnDiscord(message+"\n")
+        output = list_merged_pr(arg)
+        message = message + output +"\n"
 
-    postOnDiscord("\n---\n")
+    message = message + "\n---\n"
+    
+    with open("SOFA-dev-meeting.md", "w") as f:
+            f.write(message)
+
 
 if __name__ == "__main__":
     main(sys.argv)
