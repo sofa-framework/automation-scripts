@@ -23,6 +23,7 @@ jobs:
           pip install python-graphql-client
           pip install python-dateutil
           pip install requests
+          pip install PyGithub
 
         working-directory: ${{ github.workspace }}
 
