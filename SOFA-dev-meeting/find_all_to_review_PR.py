@@ -20,11 +20,15 @@ def list_to_review_pr(repo_name):
     pull_requests = repository.get_pulls(state='open')
 
     message = ""
-
+    
     # Iterate over each pull request
+    first = True
     for pull_request in pull_requests:
         # Check if the pull request has the label "pr: status to review"
         if any(label.name == 'pr: status to review' for label in pull_request.labels):
+            if first == True :
+                message = message + "#### " + repo_name.upper() +" PR review\n"
+                first = False
             message = message + "- [#"+str(pull_request.number)+" "+str(pull_request.title)+"]("+str(pull_request.html_url)+")\n→ \n"
-
+    
     return message

@@ -26,7 +26,7 @@ def get_merged_pull_requests(repo_owner, repo_name, token):
 
     return merged_pull_requests
 
-# Example usage
+
 def list_merged_pr(repo_name):
     repo_owner = "sofa-framework"
     if "GITHUB_TOKEN" in os.environ:
@@ -38,6 +38,9 @@ def list_merged_pr(repo_name):
     merged_pull_requests = get_merged_pull_requests(repo_owner, repo_name, github_token)
 
     message = ""
+    
+    if merged_pull_requests:
+        message = message + "#### " + repo_name.upper() +" PR merged\n"
 
     # Print the merged pull requests
     for index, pull_request in enumerate(merged_pull_requests, start=1):
