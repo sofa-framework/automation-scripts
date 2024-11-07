@@ -8,7 +8,7 @@ from list_topics_to_be_discussed import list_topics_to_be_discussed
 
 discord_token = os.environ['DISCORD_WEBHOOK_URL']
 
-def postOnDiscord(message):
+def postOnDiscord():
     response = requests.post(discord_token, files={"file": open("SOFA-dev-meeting.md", "rb")})
     print("Status: "+str(response.status_code)+"\nReason: "+str(response.reason)+"\nText: "+str(response.text))
     return
@@ -40,7 +40,9 @@ def main(argv):
     message = message + "\n---\n"
     
     with open("SOFA-dev-meeting.md", "w") as f:
-            f.write(message)
+        f.write(message)
+
+    postOnDiscord()
 
 
 if __name__ == "__main__":
