@@ -37,6 +37,10 @@ def list_merged_pr(repo_name):
 
     merged_pull_requests = get_merged_pull_requests(repo_owner, repo_name, github_token)
 
+    message = ""
+
     # Print the merged pull requests
     for index, pull_request in enumerate(merged_pull_requests, start=1):
-        print(f"- [#{pull_request['number']} {pull_request['title']}]({pull_request['html_url']})")
+        message = message + "- [#"+str(pull_request['number'])+" "+str(pull_request['title'])+"]("+str(pull_request['html_url'])+")\n"
+
+    return message
