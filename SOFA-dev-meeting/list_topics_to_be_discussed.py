@@ -26,7 +26,7 @@ def list_topics_to_be_discussed(repo_name):
     # Iterate over each issues
     for issue in issues:
         # Check if the issue has the label "pr: status to review"
-        if any(label.name == 'pr: dev meeting topic' for label in issue.labels):
+        if any(label.name == 'topic for next dev-meeting' for label in issue.labels):
             message = message + "- [#"+str(issue.number)+" "+str(issue.title)+"]("+str(issue.html_url)+")\n"
 
     # ------------------------------------------------
