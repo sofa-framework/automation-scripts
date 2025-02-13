@@ -30,7 +30,7 @@ jobs:
       - name: Run script SOFA-dev-meeting-template.py
         if: github.event.schedule != '0 0 15 * *'
         run: |
-          python SOFA-dev-meeting/SOFA-dev-meeting-template.py sofa SofaPython3 BeamAdapter doc SofaGLFW Regression Sofa.Qt SofaMJEDFEM
+          python SOFA-dev-meeting/SOFA-dev-meeting-template.py sofa SofaPython3 BeamAdapter doc SofaGLFW Regression Sofa.Qt SofaMJEDFEM CGALPlugin Registration PluginExample CSparseSolvers
         working-directory: ${{ github.workspace }}
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_SOFADEV_WEBHOOK_URL }}
