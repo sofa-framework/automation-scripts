@@ -2,7 +2,7 @@ name: Post - SOFA dev meeting agenda/reminder
 
 on:
   schedule:
-    - cron: '30 8 * * 1'  # 9:30 am UTC+1 every Monday
+    - cron: '30 8 * * 1'  # 9:30 am UTC+1 every Monday 
     - cron: '30 7 * * 3'   # 8:30 am UTC+1 on Wednesdays
     - cron: '30 6 * * 3'   # 7:30 am UTC+1 on Wednesdays (for summer times)
 
