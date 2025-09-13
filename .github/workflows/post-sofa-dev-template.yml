@@ -3,7 +3,7 @@ name: Post - SOFA dev meeting report template
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 6 * * 3'   # 7:00 am UTC+1 on Wednesdays
+    - cron: '0 6 * * 4'   # 7:00 am UTC+1 on Thursdays
 
 jobs:
   run:
