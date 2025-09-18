@@ -3,8 +3,8 @@ name: Post - SOFA dev meeting agenda/reminder
 on:
   schedule:
     - cron: '30 8 * * 1'  # 9:30 am UTC+1 every Monday 
-    - cron: '30 7 * * 4'   # 8:30 am UTC+1 on Thursdays
-    - cron: '30 6 * * 4'   # 7:30 am UTC+1 on Thursdays (for summer times)
+    - cron: '30 8 * * 4'   # 8:30 am UTC+1 on Thursdays
+    - cron: '30 7 * * 4'   # 7:30 am UTC+1 on Thursdays (for summer times)
 
 env:
   TZ: "Europe/Paris"
@@ -46,7 +46,7 @@ jobs:
 
       # Thursday message : announce meeting and share link
       - name: Check time depending on winter/summer times
-        if: ${{ (github.event.schedule == '30 7 * * 4') || (github.event.schedule == '30 6 * * 4') }}
+        if: ${{ (github.event.schedule == '30 8 * * 4') || (github.event.schedule == '30 7 * * 4') }}
         id: check_time
         run: |
           # Set the timezone to CET
@@ -56,8 +56,8 @@ jobs:
           # Get the current hour in CET
           current_hour=$(date +'%H')
 
-          # Check if the current hour is 8 and set output
-          if [ "$current_hour" -eq 8 ]; then
+          # Check if the current hour is 9 and set output
+          if [ "$current_hour" -eq 9 ]; then
             echo "::set-output name=itstime::true"
           else
             echo "::set-output name=itstime::false"
