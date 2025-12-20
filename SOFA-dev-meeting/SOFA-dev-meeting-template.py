@@ -25,18 +25,30 @@ def main(argv):
     
     message="# "+str(dateToday)+"\n### News\n- \n\n### Technical discussions\n"
 
-    output = list_topics_to_be_discussed("sofa")
+    output = list_topics_to_be_discussed("sofa-framework","sofa")
     message = message + output + "\n"
 
     message = message + "### PR review\n"
     for arg in argv[1:]:
-        output = list_to_review_pr(arg)
-        message = message + output +"\n"
+        repo_owner = "sofa-framework"
+        repo_name = arg
+        if "/" in arg:
+            repo_owner = arg.split("/")[0]
+            repo_name = arg.split("/")[1]
+        output = list_to_review_pr(repo_owner, repo_name)
+        if output != "":
+            message = message + output +"\n"
 
     message = message + "### PR merged within the week\n"
     for arg in argv[1:]:
-        output = list_merged_pr(arg)
-        message = message + output +"\n"
+        repo_owner = "sofa-framework"
+        repo_name = arg
+        if "/" in arg:
+            repo_owner = arg.split("/")[0]
+            repo_name = arg.split("/")[1]
+        output = list_merged_pr(repo_owner, repo_name)
+        if output != "":
+            message = message + output +"\n"
 
     message = message + "\n---\n"
     

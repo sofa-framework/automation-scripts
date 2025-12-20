@@ -1,9 +1,7 @@
 from github import Github
 import os
 
-def list_topics_to_be_discussed(repo_name):
-    # Example usage
-    repo_owner = "sofa-framework"
+def list_topics_to_be_discussed(repo_owner, repo_name):
     if "GITHUB_TOKEN" in os.environ:
         github_token = os.environ['GITHUB_TOKEN']
     else:

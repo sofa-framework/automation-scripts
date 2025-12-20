@@ -1,9 +1,7 @@
 from github import Github
 import os
 
-def list_to_review_pr(repo_name):
-    # Example usage
-    repo_owner = "sofa-framework"
+def list_to_review_pr(repo_owner, repo_name):
     if "GITHUB_TOKEN" in os.environ:
         github_token = os.environ['GITHUB_TOKEN']
     else:
