@@ -11,7 +11,7 @@ env:
 
 jobs:
   run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: ${{ github.repository_owner == 'sofa-framework' }}
 
     steps:
