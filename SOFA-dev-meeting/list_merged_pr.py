@@ -27,8 +27,7 @@ def get_merged_pull_requests(repo_owner, repo_name, token):
     return merged_pull_requests
 
 
-def list_merged_pr(repo_name):
-    repo_owner = "sofa-framework"
+def list_merged_pr(repo_owner, repo_name):
     if "GITHUB_TOKEN" in os.environ:
         github_token = os.environ['GITHUB_TOKEN']
     else:
